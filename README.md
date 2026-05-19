@@ -8,6 +8,34 @@
 
 BIDEO는 영상 크리에이터가 작품을 등록하고, 사용자가 피드에서 탐색하며, 경매와 결제까지 이어갈 수 있는 영상 작품 마켓플레이스입니다. Spring Boot와 Thymeleaf 기반의 서버 렌더링 화면 위에 기능별 JavaScript가 REST API를 호출하는 구조입니다.
 
+## 1-1. 데이터 기반 기획 근거
+
+AI workspace의 `data-analysis` 자료를 바탕으로 BIDEO의 서비스 필요성을 뒷받침하는 그래프를 추가했습니다.
+
+### 콘텐츠 시장 성장
+
+![콘텐츠 시장 성장](assets/data-bideo-market-growth.png)
+
+국내 콘텐츠산업 매출은 2020년 128.3조 원에서 2024년 157.4조 원까지 증가했습니다. 영상 콘텐츠를 단순 소비 대상이 아니라 거래 가능한 디지털 자산으로 다룰 수 있는 시장 기반이 존재합니다.
+
+### OTT 이용률과 유료 이용 증가
+
+![OTT 이용률과 유료 이용 증가](assets/data-bideo-usage-rate.png)
+
+OTT 이용률은 2021년 69.5%에서 2024년 79.2%까지 상승했습니다. 유료 OTT 이용 경험도 함께 확대되고 있어, 사용자가 영상 콘텐츠에 비용을 지불하는 흐름이 강화되고 있습니다.
+
+### 모바일·숏폼 중심 소비
+
+![모바일 숏폼 중심 소비](assets/data-bideo-mobile-content-core.png)
+
+2024년 스마트폰 이용률은 TV 이용률보다 높고, 스마트폰에서 자주 소비되는 콘텐츠는 숏폼과 OTT 중심입니다. BIDEO가 세로형 작품 피드와 빠른 탐색 UX를 채택한 근거입니다.
+
+### 창작자 수익 집중 문제
+
+![창작자 수익 집중 문제](assets/data-bideo-creator-problem-summary.png)
+
+1인 미디어 창작자 수익은 상위 창작자에게 집중되어 있습니다. BIDEO는 조회수와 광고 수익에만 의존하지 않고, 작품 자체를 경매와 거래로 연결하는 직접 수익화 경로를 제안합니다.
+
 ## 2. 웹 화면 구조
 
 ![웹 화면 구조](assets/slide-02.png)
@@ -94,6 +122,16 @@ S3에 저장된 음성 파일을 presigned URL로 가져온 뒤 STT 모델로 �
 
 작품 예측 기능은 저장된 pkl 모델을 처음 요청 시 로드한 뒤 재사용합니다. `/api/work/regression`은 예상 조회수를 예측하고, `/api/work/classification`은 LabelEncoder와 threshold를 사용해 고조회수 여부를 분류합니다.
 
+AI workspace 기준 모델 산출물은 `data-analysis/models`에 저장되어 있습니다.
+
+| 모델 파일 | 역할 | 입력 feature |
+| --- | --- | --- |
+| `bideo_regressor.pkl` | 예상 조회수 회귀 예측 | 25개 |
+| `bideo_classifier.pkl` | 고조회수/저조회수 분류 | 19개 |
+| `bideo_auction_success_classifier.pkl` | 경매 성공 후보 분류 | 21개 |
+
+재학습 스크립트는 `data-analysis/retrain_bideo_from_csv.py`와 `data-analysis/retrain_bideo_from_db.py`입니다. CSV 기반 학습은 `bideo_video_auction_dataset_10000.csv`를 사용하고, DB 기반 학습은 PostgreSQL의 `tbl_work`, `tbl_auction`, `tbl_bid` 데이터를 feature로 변환합니다.
+
 ## 12. 작품 및 갤러리 추천
 
 ![작품 및 갤러리 추천](assets/fastapi-slide-12.png)
@@ -119,3 +157,4 @@ S3에 저장된 음성 파일을 presigned URL로 가져온 뒤 STT 모델로 �
 
 - `capture/fastapi-ai-presentation.html`: FastAPI AI 캡처 원본 HTML
 - `assets/fastapi-slide-08.png` ~ `assets/fastapi-slide-13.png`: FastAPI AI 발표용 캡처 이미지
+- `assets/data-bideo-*.png`: AI workspace에서 가져온 BIDEO 데이터 분석 그래프
