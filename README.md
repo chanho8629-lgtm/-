@@ -63,3 +63,59 @@ BIDEO는 영상 크리에이터가 작품을 등록하고, 사용자가 피드�
 - `assets/slide-01.png` ~ `assets/slide-07.png`: 발표용 캡처 이미지
 - `README.md`: 발표 문서
 
+
+---
+
+# FastAPI AI 발표자료
+
+> BIDEO와 연동되는 FastAPI AI 서버를 기준으로 작성한 추가 발표자료입니다.
+
+## 8. FastAPI AI 서버 역할
+
+![FastAPI AI 서버 역할](assets/fastapi-slide-08.png)
+
+FastAPI는 Spring Boot 웹 서비스에서 무거운 AI 처리를 분리한 보조 서버입니다. BIDEO 화면에서 필요한 시점에 REST API로 호출하고, FastAPI는 OpenAI, LangChain, Redis, AWS S3, 저장된 ML 모델을 이용해 결과를 반환합니다.
+
+## 9. 이미지 생성 및 분석 API
+
+![이미지 생성 및 분석 API](assets/fastapi-slide-09.png)
+
+이미지 파이프라인은 프롬프트 입력, 이미지 생성, S3 업로드, 이미지 분석, 결과 반환 순서로 동작합니다. 주요 엔드포인트는 `/api/ai/image/generate`, `/api/ai/image/analyze`, `/api/ai/image/pipeline`입니다.
+
+## 10. 음성 회의록 요약
+
+![음성 회의록 요약](assets/fastapi-slide-10.png)
+
+S3에 저장된 음성 파일을 presigned URL로 가져온 뒤 STT 모델로 녹취록을 만들고, LLM이 회의 개요, 가격 조건, 물류 조건, 결제 조건, 주요 합의 사항, 후속 과제를 보고서 형태로 정리합니다.
+
+## 11. 작품 성과 예측 API
+
+![작품 성과 예측 API](assets/fastapi-slide-11.png)
+
+작품 예측 기능은 저장된 pkl 모델을 처음 요청 시 로드한 뒤 재사용합니다. `/api/work/regression`은 예상 조회수를 예측하고, `/api/work/classification`은 LabelEncoder와 threshold를 사용해 고조회수 여부를 분류합니다.
+
+## 12. 작품 및 갤러리 추천
+
+![작품 및 갤러리 추천](assets/fastapi-slide-12.png)
+
+추천 API는 제목, 설명, 태그를 기반으로 텍스트 특징을 만들고 유사도를 계산합니다. 한국어 처리를 위해 Kiwi를 사용하고, TF-IDF 기반 유사도 계산으로 현재 갤러리에 없는 후보 작품을 추천합니다.
+
+## 13. 경매 RAG 분석
+
+![경매 RAG 분석](assets/fastapi-slide-13.png)
+
+경매 RAG 분석은 PDF 리포트를 인덱싱하고, 작품 정보와 경매 지표를 결합해 투자 분석 보고서를 생성합니다. `/api/auction/rag/index`는 문서 인덱싱을 담당하고, `/api/auction/rag/analyze`는 가격 매력도, 예상 낙찰가, ROI 시나리오, 입찰 추천을 반환합니다.
+
+## FastAPI AI 발표 순서 요약
+
+1. Spring Boot에서 AI 처리를 FastAPI로 분리한 이유를 설명합니다.
+2. 이미지 생성/분석 파이프라인과 S3 업로드 흐름을 소개합니다.
+3. 음성 파일을 STT와 LLM 요약으로 회의록화하는 과정을 설명합니다.
+4. pkl 모델 기반 작품 성과 예측 구조를 설명합니다.
+5. Kiwi와 TF-IDF 기반 추천 API를 설명합니다.
+6. RAGAnything과 LightRAG를 이용한 경매 투자 분석 흐름을 정리합니다.
+
+## FastAPI AI 작성 파일
+
+- `capture/fastapi-ai-presentation.html`: FastAPI AI 캡처 원본 HTML
+- `assets/fastapi-slide-08.png` ~ `assets/fastapi-slide-13.png`: FastAPI AI 발표용 캡처 이미지
