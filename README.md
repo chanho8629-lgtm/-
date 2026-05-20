@@ -1,10 +1,7 @@
 # BIDEO 웹서비스 핵심 코드 발표 정리
 
-> 기준 문서: `발표/README.md`  
-> 기준 프로젝트: `spring/workspace/bideo`  
-> 방향: 화면 이해에 필요한 대표 이미지만 남기고, 코드는 핵심 흐름만 짧게 발췌
 
-## 1. 등록 흐름: 예술관 등록 / 작품 등록
+## 등록 흐름: 예술관 등록 / 작품 등록
 
 ![작품 등록과 피드](assets/slide-03.png)
 
@@ -30,7 +27,7 @@ public GalleryCreateResponseDTO write(Long memberId, GalleryCreateRequestDTO req
 }
 ```
 
-발표 포인트: 예술관은 커버 이미지, 작품 목록, 태그를 묶어 하나의 전시 공간으로 저장하는 기능입니다.
+예술관은 커버 이미지, 작품 목록, 태그를 묶어 하나의 전시 공간으로 저장하는 기능입니다.
 
 ### 작품 등록
 
@@ -65,9 +62,9 @@ public WorkCreateResponseDTO write(Long memberId, WorkCreateRequestDTO requestDT
 }
 ```
 
-발표 포인트: 작품 등록은 파일 저장, 태그 저장, 예술관 연결, AI 예측값 저장, 경매 생성까지 이어지는 핵심 시작점입니다.
+ 작품 등록은 파일 저장, 태그 저장, 예술관 연결, AI 예측값 저장, 경매 생성까지 이어지는 핵심 시작점입니다.
 
-## 2. 거래 흐름: 경매 / 결제
+##  거래 흐름: 경매 / 결제
 
 ![경매와 결제](assets/slide-04.png)
 
@@ -100,7 +97,7 @@ public BidResponseDTO placeBid(Long memberId, BidRequestDTO requestDTO) {
 }
 ```
 
-발표 포인트: 입찰은 경매 상태, 판매자 본인 여부, 최소 10% 입찰 조건을 검증한 뒤 최고 입찰자를 갱신합니다.
+ 입찰은 경매 상태, 판매자 본인 여부, 최소 10% 입찰 조건을 검증한 뒤 최고 입찰자를 갱신합니다.
 
 ### 결제 검증
 
@@ -126,9 +123,9 @@ public PaymentResponseDTO confirmBootpayPayment(Long buyerId, BootpayConfirmRequ
 }
 ```
 
-발표 포인트: 프론트 결제 성공만 믿지 않고, 서버에서 Bootpay 영수증의 주문번호와 금액을 다시 확인합니다.
+ 프론트 결제 성공만 믿지 않고, 서버에서 Bootpay 영수증의 주문번호와 금액을 다시 확인합니다.
 
-## 3. 상세 화면: 예술관 상세 / 작품 상세
+## 상세 화면: 예술관 상세 / 작품 상세
 
 ![예술관 공모전 프로필](assets/slide-05.png)
 
@@ -175,9 +172,9 @@ public WorkDetailResponseDTO getWorkDetail(Long id) {
 }
 ```
 
-발표 포인트: 작품 상세는 미디어, 반응 상태, 소유자 여부, 활성 경매 여부를 합쳐 피드형 상세 화면을 만듭니다.
+작품 상세는 미디어, 반응 상태, 소유자 여부, 활성 경매 여부를 합쳐 피드형 상세 화면을 만듭니다.
 
-## 4. 대시보드
+## 대시보드
 
 원본: `src/main/java/com/app/bideo/service/dashboard/DashboardService.java`
 
@@ -213,7 +210,8 @@ public DashboardResponseDTO getDashboard(Long memberId) {
 }
 ```
 
-발표 포인트: 대시보드는 조회수, 경매, 결제, 작품, 예술관 데이터를 모아 사용자의 운영 현황을 한 화면에 보여줍니다.
+ 대시보드는 조회수, 경매, 결제, 작품, 예술관 데이터를 모아 사용자의 운영 현황을 한 화면에 보여줍니다.
+
 
 ## 발표 흐름 요약
 
@@ -229,11 +227,16 @@ public DashboardResponseDTO getDashboard(Long memberId) {
 
 
 
-
-
-
-
-
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 
 
@@ -246,11 +249,8 @@ public DashboardResponseDTO getDashboard(Long memberId) {
 
 # FastAPI AI 핵심 코드 발표 정리
 
-> 기준 문서: `발표/README.md`의 FastAPI AI 섹션  
-> 기준 프로젝트: `fastapi/workspaes/basic`  
-> 방향: AI 기능별 대표 이미지 1개와 핵심 코드만 짧게 정리
 
-## 1. FastAPI AI 서버 역할
+##  FastAPI AI 서버 역할
 
 ![FastAPI AI 서버 역할](assets/fastapi-slide-08.png)
 
@@ -267,9 +267,9 @@ app.include_router(gallery.router)   # 예술관 유사도 추천
 app.include_router(auction_rag.router) # 경매 RAG 분석
 ```
 
-발표 포인트: Spring Boot가 무거운 AI 작업을 직접 처리하지 않고, FastAPI가 전담하는 구조입니다.
+Spring Boot가 무거운 AI 작업을 직접 처리하지 않고, FastAPI가 전담하는 구조입니다.
 
-## 2. 이미지 생성 및 분석
+##  이미지 생성 및 분석
 
 ![이미지 생성 및 분석 API](assets/fastapi-slide-09.png)
 
@@ -297,9 +297,9 @@ def _run_image_pipeline(self, request: ImagePipelineRequest) -> ImagePipelineRes
     )
 ```
 
-발표 포인트: 프롬프트를 받아 이미지를 만들고, 바로 분석한 뒤, S3 key와 presigned URL까지 반환합니다.
+ 프롬프트를 받아 이미지를 만들고, 바로 분석한 뒤, S3 key와 presigned URL까지 반환합니다.
 
-## 3. 작품 성과 예측
+##  작품 성과 예측
 
 ![작품 성과 예측 API](assets/fastapi-slide-11.png)
 
@@ -320,9 +320,9 @@ async def predict_views(self, features: WorkRegressionFeatures) -> WorkRegressio
     )
 ```
 
-발표 포인트: 회귀 모델은 저장된 pkl과 feature 순서를 맞춰 예상 조회수를 계산하고, 첫 호출 이후에는 메모리 재사용으로 성능을 확보합니다.
+회귀 모델은 저장된 pkl과 feature 순서를 맞춰 예상 조회수를 계산하고, 첫 호출 이후에는 메모리 재사용으로 성능을 확보합니다.
 
-## 4. 유사도 추천
+## 유사도 추천
 
 ![작품 및 갤러리 추천](assets/fastapi-slide-12.png)
 
@@ -344,9 +344,9 @@ query_mat = tfidf_v.transform([request.content])
 sim_scores = cosine_similarity(query_mat, tfidf_mat)[0]
 ```
 
-발표 포인트: 제목, 설명, 태그를 하나의 텍스트로 합치고, Kiwi 기반 전처리와 TF-IDF 유사도 계산으로 추천 점수를 만듭니다.
+ 제목, 설명, 태그를 하나의 텍스트로 합치고, Kiwi 기반 전처리와 TF-IDF 유사도 계산으로 추천 점수를 만듭니다.
 
-## 5. 경매 RAG 분석
+## 경매 RAG 분석
 
 ![경매 RAG 분석](assets/fastapi-slide-13.png)
 
@@ -375,7 +375,7 @@ async def analyze(self, request: AuctionRagAnalyzeRequest) -> AuctionRagAnalyzeR
     )
 ```
 
-발표 포인트: 빠른 모드와 RAG 모드를 분리해서, 즉시 응답과 문서 기반 정밀 분석을 모두 지원합니다.
+ 빠른 모드와 RAG 모드를 분리해서, 즉시 응답과 문서 기반 정밀 분석을 모두 지원합니다.
 
 ## 발표 흐름 요약
 
