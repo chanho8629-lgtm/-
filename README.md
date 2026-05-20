@@ -1,10 +1,7 @@
 # BIDEO 웹서비스 핵심 코드 발표 정리
 
-> 기준 문서: `발표/README.md`  
-> 기준 프로젝트: `spring/workspace/bideo`  
-> 방향: 화면 이해에 필요한 대표 이미지만 남기고, 코드는 핵심 흐름만 짧게 발췌
 
-## 1. 등록 흐름: 예술관 등록 / 작품 등록
+##  예술관 등록 / 작품 등록
 
 ![작품 등록과 피드](assets/slide-03.png)
 
@@ -14,14 +11,14 @@
 
 ```java
 public GalleryCreateResponseDTO write(Long memberId, GalleryCreateRequestDTO requestDTO, MultipartFile coverFile) {
-    Long resolvedMemberId = resolveMemberId(memberId);       // 발표용: 로그인 사용자를 확정 / 개발자용: SecurityContext principal을 정규화해서 현재 요청의 작성자 ID로 사용했습니다.
+    Long resolvedMemberId = resolveMemberId(memberId);       //  로그인 사용자를 확정 / SecurityContext principal을 정규화해서 현재 요청의 작성자 ID로 사용했습니다.
     requestDTO.setMemberId(resolvedMemberId);
-    requestDTO.setCoverImage(saveCoverImage(coverFile));     // 발표용: 커버 이미지를 저장 / 개발자용: 업로드된 파일을 S3 object key로 바꿔서 DB에는 경로만 저장했습니다.
+    requestDTO.setCoverImage(saveCoverImage(coverFile));     //  커버 이미지를 저장 / 개발자용: 업로드된 파일을 S3 object key로 바꿔서 DB에는 경로만 저장했습니다.
 
-    galleryDAO.save(requestDTO);                             // 발표용: 예술관을 등록 / 개발자용: gallery aggregate root를 먼저 저장해서 PK를 확보했습니다.
-    saveWorkLinks(requestDTO.getId(), requestDTO.getWorkIds(), resolvedMemberId); // 발표용: 작품을 연결 / 개발자용: N:M 관계를 relation table에 동기화했습니다.
-    saveTags(requestDTO.getId(), requestDTO.getTagIds(), requestDTO.getTagNames()); // 발표용: 태그를 연결 / 개발자용: tag association을 정규화해서 저장했습니다.
-    galleryDAO.updateWorkCount(requestDTO.getId());          // 발표용: 작품 수를 갱신 / 개발자용: 화면 집계를 위해 denormalized count column을 업데이트했습니다.
+    galleryDAO.save(requestDTO);                             //  예술관을 등록 / : gallery aggregate root를 먼저 저장해서 PK를 확보했습니다.
+    saveWorkLinks(requestDTO.getId(), requestDTO.getWorkIds(), resolvedMemberId); // 작품을 연결 / N:M 관계를 relation table에 동기화했습니다.
+    saveTags(requestDTO.getId(), requestDTO.getTagIds(), requestDTO.getTagNames()); // 태그를 연결 / tag association을 정규화해서 저장했습니다.
+    galleryDAO.updateWorkCount(requestDTO.getId());          // 작품 수를 갱신 
 
     return GalleryCreateResponseDTO.builder()
             .galleryId(requestDTO.getId())
@@ -30,7 +27,7 @@ public GalleryCreateResponseDTO write(Long memberId, GalleryCreateRequestDTO req
 }
 ```
 
-발표 포인트: 예술관은 커버 이미지, 작품 목록, 태그를 묶어 하나의 전시 공간으로 저장하는 기능입니다.
+ 예술관은 커버 이미지, 작품 목록, 태그를 묶어 하나의 전시 공간으로 저장하는 기능입니다.
 
 ### 작품 등록
 
