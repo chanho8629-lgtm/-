@@ -1,8 +1,6 @@
 # BIDEO 웹서비스 핵심 코드 발표 정리
-
-> 기준 문서: `발표/README.md`  
-> 기준 프로젝트: `spring/workspace/bideo`  
-> 방향: 화면 이해에 필요한 대표 이미지만 남기고, 코드는 핵심 흐름만 짧게 발췌
+ 
+> 프로젝트: `spring/workspace/bideo`  
 
 ## 1. 등록 흐름: 예술관 등록 / 작품 등록
 
