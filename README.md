@@ -1,6 +1,8 @@
 # BIDEO 웹서비스 핵심 코드 발표 정리
- 
-> 프로젝트: `spring/workspace/bideo`  
+
+> 기준 문서: `발표/README.md`  
+> 기준 프로젝트: `spring/workspace/bideo`  
+> 방향: 화면 이해에 필요한 대표 이미지만 남기고, 코드는 핵심 흐름만 짧게 발췌
 
 ## 1. 등록 흐름: 예술관 등록 / 작품 등록
 
@@ -27,7 +29,8 @@ public GalleryCreateResponseDTO write(Long memberId, GalleryCreateRequestDTO req
             .build();
 }
 ```
-예술관은 커버 이미지, 작품 목록, 태그를 묶어 하나의 전시 공간으로 저장하는 기능입니다.
+
+발표 포인트: 예술관은 커버 이미지, 작품 목록, 태그를 묶어 하나의 전시 공간으로 저장하는 기능입니다.
 
 ### 작품 등록
 
@@ -62,7 +65,7 @@ public WorkCreateResponseDTO write(Long memberId, WorkCreateRequestDTO requestDT
 }
 ```
 
-작품 등록은 파일 저장, 태그 저장, 예술관 연결, 경매 생성까지 이어지는 핵심 시작점입니다.
+발표 포인트: 작품 등록은 파일 저장, 태그 저장, 예술관 연결, AI 예측값 저장, 경매 생성까지 이어지는 핵심 시작점입니다.
 
 ## 2. 거래 흐름: 경매 / 결제
 
@@ -97,7 +100,7 @@ public BidResponseDTO placeBid(Long memberId, BidRequestDTO requestDTO) {
 }
 ```
 
- 입찰은 경매 상태, 판매자 본인 여부, 최소 10% 입찰 조건을 검증한 뒤 최고 입찰자를 갱신합니다.
+발표 포인트: 입찰은 경매 상태, 판매자 본인 여부, 최소 10% 입찰 조건을 검증한 뒤 최고 입찰자를 갱신합니다.
 
 ### 결제 검증
 
@@ -123,7 +126,7 @@ public PaymentResponseDTO confirmBootpayPayment(Long buyerId, BootpayConfirmRequ
 }
 ```
 
- 프론트 결제 성공만 믿지 않고, 서버에서 Bootpay 영수증의 주문번호와 금액을 다시 확인합니다.
+발표 포인트: 프론트 결제 성공만 믿지 않고, 서버에서 Bootpay 영수증의 주문번호와 금액을 다시 확인합니다.
 
 ## 3. 상세 화면: 예술관 상세 / 작품 상세
 
@@ -150,7 +153,7 @@ public GalleryDetailResponseDTO getGalleryDetail(Long id) {
 }
 ```
 
-예술관 상세는 커버, 태그, 포함 작품, 좋아요/북마크/소유자 상태를 한 번에 구성합니다.
+발표 포인트: 예술관 상세는 커버, 태그, 포함 작품, 좋아요/북마크/소유자 상태를 한 번에 구성합니다.
 
 ### 작품 상세
 
@@ -172,7 +175,7 @@ public WorkDetailResponseDTO getWorkDetail(Long id) {
 }
 ```
 
- 작품 상세는 미디어, 반응 상태, 소유자 여부, 활성 경매 여부를 합쳐 피드형 상세 화면을 만듭니다.
+발표 포인트: 작품 상세는 미디어, 반응 상태, 소유자 여부, 활성 경매 여부를 합쳐 피드형 상세 화면을 만듭니다.
 
 ## 4. 대시보드
 
@@ -210,7 +213,9 @@ public DashboardResponseDTO getDashboard(Long memberId) {
 }
 ```
 
- 대시보드는 조회수, 경매, 결제, 작품, 예술관 데이터를 모아 사용자의 운영 현황을 한 화면에 보여줍니다.
+발표 포인트: 대시보드는 조회수, 경매, 결제, 작품, 예술관 데이터를 모아 사용자의 운영 현황을 한 화면에 보여줍니다.
+
+## 발표 흐름 요약
 
 1. 예술관을 만들고 작품을 등록한다.
 2. 등록된 작품은 상세 화면과 피드에서 소비된다.
